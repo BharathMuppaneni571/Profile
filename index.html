@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bharath Muppaneni – SAP UI5 / Fiori Consultant</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Font (Roboto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0d47a1;
+            --secondary: #1976d2;
+            --bg-light: #f9fafb;
+            --bg-dark: #ffffff;
+            --text-dark: #212529;
+            --text-light: #555;
+            --border-radius: 8px;
+            --shadow: 0 2px 8px rgba(0,0,0,.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--bg-dark);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        header {
+            background: var(--primary);
+            color: #fff;
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: .3rem;
+        }
+
+        header h2 {
+            font-weight: 400;
+            font-size: 1.1rem;
+        }
+
+        .section {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .section:last-child { border-bottom: none; }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: .8rem;
+            border-left: 4px solid var(--secondary);
+            padding-left: .6rem;
+        }
+
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .card {
+            flex: 1 1 300px;
+            background: #fff;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 1.2rem;
+        }
+
+        ul li::before {
+            content: "•";
+            color: var(--secondary);
+            margin-right: .5rem;
+        }
+
+        .contact-info {
+            font-size: .9rem;
+            margin-top: .5rem;
+        }
+
+        .contact-info a {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.6rem; }
+            .grid { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header / Contact -->
+        <header>
+            <h1>Bharath Muppaneni</h1>
+            <h2>SAP BTP / Fiori / MDK Consultant</h2>
+            <div class="contact-info">
+                <div>Flat 507, Lakshmis majestic plaza, Mayuri nagar,Nizampet, Miyapur, Hyderabad, Telangana, 500049</div>
+                <div>Phone: <a href="tel:+917044970559">7044970559</a></div>
+                <div><p>Email: x@gmail.com where (x = muppanenibharath571)</p></div>
+            </div>
+        </header>
+
+        <!-- Career Objective -->
+        <section class="section">
+            <h3 class="section-title">Career Objective</h3>
+            <p>To seek a challenging position in the software industry that requires innovation, creativity, and dedication, allowing me to work in a fast‑paced environment while leveraging my current knowledge and fostering continuous learning.</p>
+        </section>
+
+        <!-- Technical Skills -->
+        <section class="section">
+            <h3 class="section-title">Technical Skills</h3>
+            <ul>
+                <li>Languages: JavaScript, ABAP</li>
+                <li>Frameworks: SAP Fiori/UI5, Node.js, MDK, CAPM, BPA</li>
+                <li>Tools: SAP Web IDE, BAS, VS Code, Eclipse, GIT, SAP SOLMAN, Azure Boards, ServiceNow, Jira</li>
+                <li>Cloud: SAP BTP, SAP Workzone, SAP Workzone advanced, SAP Cloud Workflow, BPA, OData services</li>
+                <li>Operating Systems: Windows, Linux</li>
+                <li>Web: HTML, CSS, JavaScript</li>
+                <li>Databases: PostgreSQL (via BTP)</li>
+            </ul>
+        </section>
+
+        <!-- Professional Experience -->
+        <section class="section">
+            <h3 class="section-title">Professional Experience</h3>
+
+            <div class="grid">
+                <!-- Deloitte (2023 – Present) -->
+                <div class="card">
+                    <h4>Consultant – Deloitte (Hyderabad)</h4>
+                    <p><strong>Dec 2023 – Present</strong></p>
+
+                    <h5>Project: Data Guardian</h5>
+                    <ul>
+                        <li>Developed internal assets for OEM system and configured SAP Workzone advanced portal.</li>
+                        <li>Designed & built POCs and MVPs using latest SAP services.</li>
+                        <li>Supported the “Data Guardian” low‑cost solution leveraging SAP MDG.</li>
+                    </ul>
+
+                    <h5>Project: GM Modular – Master Data Management</h5>
+                    <ul>
+                        <li>Created SaaS‑enabled applications in Deloitte’s OEM space.</li>
+                        <li>Exposed solutions via GM’s SAP Workzone portal.</li>
+                        <li>Implemented workflow scenarios and BTP level configurations for cost‑optimized deployment.</li>
+                    </ul>
+                </div>
+
+                <!-- Senior Associate Consultant – BP (2021‑2023) -->
+                <div class="card">
+                    <h4>Senior Associate Consultant – Infosys Ltd. (Hyderabad)</h4>
+                    <p><strong>Mar 2021 – Dec 2023</strong></p>
+
+                    <h5>Project: BP Warehouse Management</h5>
+                    <ul>
+                        <li>Designed & developed SAP MDK applications for warehouse processes.</li>
+                        <li>Built custom client packages (.apk/.aab) with client‑specific theming.</li>
+                        <li>Leveraged MDK offline storage to improve usability in remote locations.</li>
+                        <li>Configured BTP components (destinations, OData, security roles, cloud portal).</li>
+                    </ul>
+                </div>
+
+                <!-- SAP UI5 Developer – Mumbai (2018‑2021) -->
+                <div class="card">
+                    <h4>Software Engineer – Tech Mahindra Ltd. (Mumbai)</h4>
+                    <p><strong>Apr 2018 – Mar 2021</strong></p>
+
+                    <h5>Project: Vikas</h5>
+                    <ul>
+                        <li>Configured standard SAP UI5/Fiori applications (transactional, analytical, factsheet).</li>
+                        <li>Extended applications using on‑premise Web IDE and handled ABAP classic reports.</li>
+                        <li>Managed FLM module as single point of contact and performed security/role administration.</li>
+                    </ul>
+
+                    <h5>Project: GNIDA</h5>
+                    <ul>
+                        <li>Built custom UI5 apps, integrated OData services, and enabled file uploads to DMS.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects (selected) -->
+        <section class="section">
+            <h3 class="section-title">Selected Projects</h3>
+            <ul>
+                <li><strong>BP Recharges (British Petroleum)</strong> – Design, prototype, and develop UI5 apps; bulk‑upload finance approvals; SAP Cloud Workflows; Dot‑Digital email integration. </li>
+                <li><strong>BP Plant Maintenance (British Petroleum)</strong> – UI5 & MDK development; offline capability for offshore locations; BTP destination & OData provisioning.</li>
+                <li><strong>Greater Noida Industrial Development Authority (GNIDA)</strong> – Custom UI5 development, OData integration, file uploads to DMS.</li>
+                <li><strong>Hindustan Shipyard Ltd.</strong> – UI5/Fiori administration; issue resolution; FLM customization; EHS & SD Fiori configuration.</li>
+                <li><strong>Honeywell</strong> – UI5/Fiori and ABAP development; client meetings; XREF maintenance; AL11 flat‑file operations.</li>
+            </ul>
+        </section>
+
+        <!-- Awards -->
+        <section class="section">
+            <h3 class="section-title">Awards</h3>
+            <ul>
+                <li>Certificate of Appreciation – Best Technology Specialist (BTP Application Development) by SAP.</li>
+                <li>BRAVO Award – Recognized for self‑learning & problem‑solving skills.</li>
+                <li>PAT ON THE BACK Award – Honoured for passion to excel and limitless commitment.</li>
+            </ul>
+        </section>
+
+        <!-- Education -->
+        <section class="section">
+            <h3 class="section-title">Education</h3>
+            <ul>
+                <li><strong>GVIT, JNTU‑K</strong> – B.Tech in Computer Science & Engineering (2012‑2016)</li>
+                <li><strong>Aditya, BIEAP</strong> – MPC (2010‑2012)</li>
+                <li><strong>Aditya, SSC</strong> – Completed 2010</li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>

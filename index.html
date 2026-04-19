@@ -1,238 +1,909 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
-    <title>Bharath Muppaneni – SAP UI5 / Fiori Consultant</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Font (Roboto) -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap" rel="stylesheet">
+    <title>Bharath Muppanni – SAP BTP Architect & UI/UX Specialist</title>
+    <meta name="description"
+        content="Portfolio of Bharath Muppanni, Senior SAP BTP Architect specializing in High-Impact Enterprise UX and AI-driven solutions.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        :root {
-            --primary: #0d47a1;
-            --secondary: #1976d2;
-            --bg-light: #f9fafb;
-            --bg-dark: #ffffff;
-            --text-dark: #212529;
-            --text-light: #555;
-            --border-radius: 8px;
-            --shadow: 0 2px 8px rgba(0,0,0,.1);
+        /* =====================================================
+           DESIGN TOKENS
+        ===================================================== */
+        :root[data-theme="dark"] {
+            --bg-main: #070b17;
+            --bg-nav: rgba(7, 11, 23, 0.85);
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-hover: rgba(255, 255, 255, 0.07);
+            --text-main: #f0f4ff;
+            --text-sec: #8892a4;
+            --text-muted: #546074;
+            --accent: #4f8ef7;
+            --accent-glow: rgba(79, 142, 247, 0.4);
+            --accent-alt: #7c62f5;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-strong: rgba(255, 255, 255, 0.14);
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.3);
+            --highlighter: rgba(79, 142, 247, 0.28);
+            --mesh-1: #09101f;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root[data-theme="light"] {
+            --bg-main: #f7f9fc;
+            --bg-nav: rgba(247, 249, 252, 0.88);
+            --bg-card: rgba(255, 255, 255, 0.8);
+            --bg-card-hover: rgba(255, 255, 255, 1);
+            --text-main: #0d1526;
+            --text-sec: #4a5568;
+            --text-muted: #8a9ab5;
+            --accent: #2563eb;
+            --accent-glow: rgba(37, 99, 235, 0.18);
+            --accent-alt: #6d28d9;
+            --border: rgba(0, 0, 0, 0.07);
+            --border-strong: rgba(0, 0, 0, 0.13);
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --highlighter: rgba(254, 240, 138, 0.75);
+            --mesh-1: #f0f4fb;
+        }
+
+        /* =====================================================
+           RESET & BASE
+        ===================================================== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background: var(--bg-light);
-            color: var(--text-dark);
-            line-height: 1.6;
-            padding: 20px;
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.65;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
         }
 
+        a { color: inherit; text-decoration: none; }
+
+        /* =====================================================
+           BACKGROUND
+        ===================================================== */
+        .background-visuals {
+            position: fixed; inset: 0; z-index: -1;
+            overflow: hidden; pointer-events: none;
+        }
+        .mesh-gradient {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse at 10% 15%, var(--accent-glow) 0%, transparent 45%),
+                radial-gradient(ellipse at 90% 85%, rgba(124, 98, 245, 0.12) 0%, transparent 45%),
+                var(--mesh-1);
+        }
+        .dot-grid {
+            position: absolute; inset: 0;
+            background-image: radial-gradient(var(--border-strong) 1px, transparent 1px);
+            background-size: 28px 28px;
+            opacity: 0.6;
+        }
+
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            padding: 0 5%;
+            height: 68px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-nav);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .logo .highlight { color: var(--accent); }
+
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+
+        .nav-link {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-sec);
+            transition: color 0.25s;
+            letter-spacing: 0.01em;
+        }
+        .nav-link:hover { color: var(--text-main); }
+
+        .btn-glass {
+            padding: 0.55rem 1.25rem;
+            background: var(--accent);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 700;
+            font-size: 0.88rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            letter-spacing: 0.01em;
+        }
+        .btn-glass:hover {
+            background: var(--accent-alt);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px -6px var(--accent-glow);
+        }
+
+        .theme-toggle {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-strong);
+            color: var(--text-sec);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.25s;
+        }
+        .theme-toggle:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* =====================================================
+           LAYOUT
+        ===================================================== */
         .container {
-            max-width: 1100px;
+            max-width: 1280px;
             margin: 0 auto;
-            background: var(--bg-dark);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            overflow: hidden;
+            padding: 0 5%;
         }
 
-        header {
-            background: var(--primary);
-            color: #fff;
-            padding: 2rem 1.5rem;
-            text-align: center;
+        section { padding: 7rem 0; }
+        section[id] { scroll-margin-top: 80px; }
+
+        .section-tag {
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.78rem;
+            margin-bottom: 0.85rem;
+            display: block;
         }
-
-        header h1 {
-            font-size: 2rem;
-            margin-bottom: .3rem;
-        }
-
-        header h2 {
-            font-weight: 400;
-            font-size: 1.1rem;
-        }
-
-        .section {
-            padding: 1.5rem;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .section:last-child { border-bottom: none; }
-
         .section-title {
-            color: var(--primary);
-            font-size: 1.2rem;
-            margin-bottom: .8rem;
-            border-left: 4px solid var(--secondary);
-            padding-left: .6rem;
+            font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+            font-family: 'Bricolage Grotesque', sans-serif;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+        .section-header { margin-bottom: 5rem; }
+        .huge-line {
+            height: 1px; width: 100%;
+            background: var(--border); margin: 5rem 0;
         }
 
-        .grid {
+        /* =====================================================
+           HERO
+        ===================================================== */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 4rem;
+            padding-top: 90px;
+            padding-bottom: 3rem;
+        }
+
+        .hero-left {}
+
+        .hero-title {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(2.4rem, 5.5vw, 4.8rem);
+            margin-bottom: 1.25rem;
+            letter-spacing: -2px;
+            line-height: 1.02;
+        }
+
+        .marker {
+            position: relative;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        .marker::after {
+            content: '';
+            position: absolute;
+            left: -6px; bottom: 8px;
+            width: 108%; height: 28px;
+            background: var(--highlighter);
+            z-index: -1;
+            transform: rotate(-1deg);
+            border-radius: 3px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+            color: var(--text-sec);
+            margin-bottom: 2rem;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+
+        /* Hero Right Panel */
+        .hero-right {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            padding: 2.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+
+        .stat-item h4 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+            font-family: 'Bricolage Grotesque', sans-serif;
+        }
+        .stat-item h4 span { color: var(--accent); }
+        .stat-item p {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            font-size: 0.68rem;
+            color: var(--text-muted);
+        }
+
+        /* Hero right tagline */
+        .hero-tagline {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+        }
+
+        /* Social Buttons */
+        .socials { display: flex; gap: 0.75rem; }
+        .social-btn {
+            display: inline-flex;
+            align-items: center; justify-content: center;
+            width: 40px; height: 40px;
+            border-radius: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-strong);
+            color: var(--text-sec);
+            font-size: 0.95rem;
+            transition: all 0.25s;
+        }
+        .social-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px -4px var(--accent-glow);
+        }
+
+        /* =====================================================
+           BRAND SECTION
+        ===================================================== */
+        .brand-section {
+            padding: 2.5rem 3rem;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-bottom: 4rem;
+        }
+        .brand-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.72rem;
+        }
+        .brand-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 1.5rem 3rem;
+            align-items: center;
+            justify-content: center;
+        }
+        .brand-logo {
+            max-width: 100px;
+            max-height: 34px;
+            filter: grayscale(1) opacity(0.5);
+            transition: all 0.3s;
+            object-fit: contain;
+        }
+        .brand-logo:hover {
+            filter: grayscale(0) opacity(1);
+            transform: scale(1.08);
         }
 
-        .card {
-            flex: 1 1 300px;
-            background: #fff;
-            border-radius: var(--border-radius);
-            padding: 1rem;
-            box-shadow: var(--shadow);
+        /* =====================================================
+           TIMELINE (Experience + Education)
+        ===================================================== */
+        .timeline {
+            position: relative;
+            padding-left: 2.5rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 6px;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-alt), transparent);
+            opacity: 0.3;
         }
 
-        ul {
-            list-style: none;
-            padding-left: 1.2rem;
+        .tl-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+        .tl-item:last-child { margin-bottom: 0; }
+
+        /* Timeline dot */
+        .tl-dot {
+            position: absolute;
+            left: -2.5rem;
+            top: 1.2rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--bg-main);
+            border: 2.5px solid var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+            transition: all 0.3s;
+        }
+        .tl-item:hover .tl-dot {
+            background: var(--accent);
+            box-shadow: 0 0 0 6px var(--accent-glow);
         }
 
-        ul li::before {
-            content: "•";
-            color: var(--secondary);
-            margin-right: .5rem;
+        /* Experience card in timeline */
+        .exp-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.75rem 2rem;
+            transition: all 0.3s ease;
+        }
+        .exp-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-strong);
+            box-shadow: var(--shadow-sm);
         }
 
-        .contact-info {
-            font-size: .9rem;
-            margin-top: .5rem;
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.25rem;
+            gap: 1.5rem;
         }
 
-        .contact-info a {
-            color: #fff;
-            text-decoration: underline;
+        .exp-company-info h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            font-family: 'Bricolage Grotesque', sans-serif;
+        }
+        .exp-meta {
+            font-size: 0.76rem;
+            color: var(--accent);
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.03em;
+        }
+        .exp-logo-main {
+            height: 30px;
+            object-fit: contain;
+            opacity: 0.8;
+            flex-shrink: 0;
+        }
+
+        .exp-content h4 {
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .exp-list { list-style: none; }
+        .exp-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-sec);
+            font-size: 0.93rem;
+            line-height: 1.6;
+        }
+        .exp-list li::before {
+            content: '▸';
+            position: absolute; left: 0;
+            color: var(--accent);
+            font-size: 0.78rem;
+            top: 0.1rem;
+        }
+        strong { color: var(--text-main); font-weight: 600; }
+
+        /* Education timeline items */
+        .edu-item {
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+        .edu-logo {
+            width: 46px; height: 46px;
+            border-radius: 8px;
+            object-fit: contain;
+            background: white;
+            padding: 4px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .edu-info h5 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 0.15rem;
+        }
+        .edu-info p {
+            font-size: 0.82rem;
+            color: var(--text-sec);
+            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 0.2rem;
+        }
+        .edu-date {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+            font-size: 0.73rem;
+            display: block;
+        }
+
+        /* =====================================================
+           EDUCATION SPLIT GRID
+        ===================================================== */
+        .split-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.75rem;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        .info-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-strong);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* =====================================================
+           FOOTER CTA
+        ===================================================== */
+        .footer-cta {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-alt) 100%);
+            border-radius: 16px;
+            padding: 3.5rem 3rem;
+            text-align: center;
+            color: white;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at top left, rgba(255,255,255,0.15) 0%, transparent 60%);
+        }
+        .footer-cta h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 2rem;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            letter-spacing: -1px;
+            position: relative;
+        }
+
+        /* =====================================================
+           SCROLL REVEAL
+        ===================================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* =====================================================
+           PRINT
+        ===================================================== */
+        @media print {
+            nav, .btn-glass, .dot-grid, .mesh-gradient, .theme-toggle,
+            .socials, .background-visuals { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .container { max-width: 100%; padding: 0 1cm; }
+            .exp-card, .info-card {
+                border: 1px solid #ddd !important;
+                page-break-inside: avoid;
+                background: white !important;
+                box-shadow: none !important;
+                break-inside: avoid;
+            }
+            .exp-card { border-left: 3px solid #2563eb !important; }
+            .section-title, strong { color: black !important; }
+            .text-sec, .exp-list li { color: #444 !important; }
+            .section-tag, .exp-meta, .edu-date { color: #2563eb !important; }
+            .split-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+        @media (max-width: 1024px) {
+            .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 100px; }
+            .hero-right { margin-top: 0; }
+            .hero-stats { grid-template-columns: 1fr 1fr 1fr; }
+            .split-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
-            header h1 { font-size: 1.6rem; }
-            .grid { flex-direction: column; }
+            nav { padding: 0 4%; }
+            .nav-links { gap: 1rem; }
+            .nav-link { display: none; }
+            .hero-title { letter-spacing: -1px; }
+            .hero-stats { grid-template-columns: 1fr 1fr; }
+            .brand-grid { gap: 1.5rem 2.5rem; }
+            .footer-cta { padding: 2.5rem 1.5rem; }
+            .timeline { padding-left: 1.75rem; }
         }
     </style>
-</head>
+
 <body>
+
+    <div class="background-visuals">
+        <div class="mesh-gradient"></div>
+        <div class="dot-grid"></div>
+    </div>
+
+    <nav>
+        <div class="logo">BHARATH <span class="highlight">M.</span></div>
+        <div class="nav-links">
+            <a href="#journey" class="nav-link">Professional Journey</a>
+            <a href="#expertise" class="nav-link">Expertise</a>
+            <a href="#infrastructure" class="nav-link">Infrastructure</a>
+            <button class="btn-glass" onclick="window.print()"><i class="fa-solid fa-file-export"></i> Resume
+                PDF</button>
+            <button class="theme-toggle" id="theme-toggle"><i class="fa-regular fa-moon"></i></button>
+        </div>
+    </nav>
+
     <div class="container">
-        <!-- Header / Contact -->
-        <header>
-            <h1>Bharath Muppaneni</h1>
-            <h2>SAP BTP / Fiori / MDK Consultant</h2>
-            <div class="contact-info">
-                <div>Lakshmis majestic plaza, Mayuri nagar,Nizampet, Miyapur, Hyderabad, Telangana, 500049</div>
-                <div>Phone: <a href="#">seven zero four four nine seven zero five five nine</a></div>
-                <div><p>Email: x@gmail.com where (x = muppanenibharath571)</p></div>
+        <!-- Hero Section -->
+        <header class="hero">
+            <!-- LEFT: headline + subtitle -->
+            <div class="hero-left reveal">
+                <h1 class="hero-title">Designing High-Impact SAP BTP Ecosystems.</h1>
+                <p class="hero-subtitle">I'm <span class="marker">Bharath Muppanni</span>, a Strategic SAP Architect &amp; UI/UX Expert bridging enterprise infrastructure and intuitive digital experiences.</p>
+                <div class="socials">
+                    <a href="https://github.com/BharathMuppaneni571" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/bharathmuppaneni/" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="mailto:muppanenibharath571@gmail.com" class="social-btn"><i class="fa-regular fa-envelope"></i></a>
+                </div>
+            </div>
+            <!-- RIGHT: stats panel -->
+            <div class="hero-right reveal">
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <h4 id="count-exp">0</h4>
+                        <p>Years of Impact</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>12<span>+</span></h4>
+                        <p>Certifications</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>98<span>%</span></h4>
+                        <p>Client Retention</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>3<span>+</span></h4>
+                        <p>Companies Served</p>
+                    </div>
+                </div>
+                <p class="hero-tagline">💼 Available for Senior SAP BTP Roles &amp; Consulting Engagements</p>
             </div>
         </header>
 
-        <!-- Career Objective -->
-        <section class="section">
-            <h3 class="section-title">Career Objective</h3>
-            <p>To seek a challenging position in the software industry that requires innovation, creativity, and dedication, allowing me to work in a fast‑paced environment while leveraging my current knowledge and fostering continuous learning.</p>
-        </section>
+        <!-- Global Brand Footprint (Scrapped Logos) -->
+        <div class="brand-section reveal">
+            <p class="brand-header">Strategic Partnerships & Deployments</p>
+            <div class="brand-grid">
+                <img src="https://www.deloitte.com/content/dam/assets-shared/logos/svg/a-d/deloitte.svg" alt="Deloitte"
+                    class="brand-logo">
+                <img src="https://www.infosys.com/content/dam/infosys-web/en/global-resource/media-resources/infosys-logo-png.png"
+                    alt="Infosys" class="brand-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d2/BP_Helios_logo.svg/250px-BP_Helios_logo.svg.png"
+                    alt="bp" class="brand-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/ce/Mazagon_Dock_Shipbuilders.svg/1280px-Mazagon_Dock_Shipbuilders.svg.png"
+                    alt="Mazagon Dock" class="brand-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Hindustan_Shipyard.svg/500px-Hindustan_Shipyard.svg.png"
+                    alt="Hindustan Shipyard" class="brand-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/en/5/5a/Greater_Noida_Industrial_Development_Authority_logo.png"
+                    alt="GNIDA" class="brand-logo" onerror="this.src='https://gnida.up.gov.in/assets/images/logo.png'">
+                <img src="data:image/png;base64,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"
+                    alt="Tech Mahindra" class="brand-logo"
+                    onerror="this.src='https://logo.clearbit.com/techmahindra.com'">
+                <img src="https://www.gmmodular.com/public/images/gm-logo.svg" alt="GM Modular" class="brand-logo"
+                    onerror="this.style.filter='none'; this.src='https://logo.clearbit.com/gmmodular.com'">
+                <img src="https://pbs.twimg.com/media/CMChczIUMAAJ0jo?format=png&name=900x900" alt="Tata Bluescope"
+                    class="brand-logo">
 
-        <!-- Technical Skills -->
-        <section class="section">
-            <h3 class="section-title">Technical Skills</h3>
-            <ul>
-                <li>Languages: JavaScript, ABAP</li>
-                <li>Frameworks: SAP Fiori/UI5, Node.js, MDK, CAPM, BPA</li>
-                <li>Tools: SAP Web IDE, BAS, VS Code, Eclipse, GIT, SAP SOLMAN, Azure Boards, ServiceNow, Jira</li>
-                <li>Cloud: SAP BTP, SAP Workzone, SAP Workzone advanced, SAP Cloud Workflow, BPA, OData services</li>
-                <li>Operating Systems: Windows, Linux</li>
-                <li>Web: HTML, CSS, JavaScript</li>
-                <li>Databases: PostgreSQL (via BTP)</li>
-            </ul>
-        </section>
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e1/Gold_Fields_logo.svg/1280px-Gold_Fields_logo.svg.png"
+                    alt="Goldfields" class="brand-logo">
 
-        <!-- Professional Experience -->
-        <section class="section">
-            <h3 class="section-title">Professional Experience</h3>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Mankind_Pharma_Corporate_Logo.png"
+                    alt="mankind pharma" class="brand-logo">
 
-            <div class="grid">
-                <!-- Deloitte (2023 – Present) -->
-                <div class="card">
-                    <h4>Consultant – Deloitte (Hyderabad)</h4>
-                    <p><strong>Dec 2023 – Present</strong></p>
+            </div>
+        </div>
 
-                    <h5>Project: Data Guardian</h5>
-                    <ul>
-                        <li>Developed internal assets for OEM system and configured SAP Workzone advanced portal.</li>
-                        <li>Designed & built POCs and MVPs using latest SAP services.</li>
-                        <li>Supported the “Data Guardian” low‑cost solution leveraging SAP MDG.</li>
-                    </ul>
+        <!-- Experience Journeys -->
+        <section id="journey">
+            <div class="section-header reveal">
+                <span class="section-tag">Historical Impact</span>
+                <h2 class="section-title">Professional Journey.</h2>
+            </div>
 
-                    <h5>Project: GM Modular – Master Data Management</h5>
-                    <ul>
-                        <li>Created SaaS‑enabled applications in Deloitte’s OEM space.</li>
-                        <li>Exposed solutions via GM’s SAP Workzone portal.</li>
-                        <li>Implemented workflow scenarios and BTP level configurations for cost‑optimized deployment.</li>
-                    </ul>
+            <div class="timeline">
+
+                <!-- Deloitte -->
+                <div class="tl-item reveal">
+                    <div class="tl-dot"></div>
+                    <div class="exp-card">
+                        <div class="exp-header">
+                            <div class="exp-company-info">
+                                <h3>Deloitte</h3>
+                                <div class="exp-meta">Dec 2023 — Present &nbsp;|&nbsp; Consulting UI Lead</div>
+                            </div>
+                            <img src="https://www.deloitte.com/content/dam/assets-shared/logos/svg/a-d/deloitte.svg" alt="Deloitte" class="exp-logo-main">
+                        </div>
+                        <div class="exp-content">
+                            <h4>BTP SaaS Transformations &amp; AI Strategy</h4>
+                            <ul class="exp-list">
+                                <li><strong>Architectural Orchestration</strong>: BTP ecosystem deployments for <strong>GM Modular</strong> &amp; <strong>Tata Bluescope Steel</strong>. Leading a team of 8 specialists.</li>
+                                <li><strong>Data Guardian Framework</strong>: Pharma data governance tool via Appsmith &amp; SAP MDG with AI Insights and RAG-based search.</li>
+                                <li><strong>OEM Global Assets</strong>: Tenant-aware SaaS apps in SAP Workzone Advanced portals for cost-optimized cloud operations.</li>
+                                <li><strong>Joule Engagement</strong>: Custom Joule skills &amp; GenAI patterns for Gold Fields operational query automation.</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Senior Associate Consultant – BP (2021‑2023) -->
-                <div class="card">
-                    <h4>Senior Associate Consultant – Infosys Ltd. (Hyderabad)</h4>
-                    <p><strong>Mar 2021 – Dec 2023</strong></p>
-
-                    <h5>Project: BP Warehouse Management</h5>
-                    <ul>
-                        <li>Designed & developed SAP MDK applications for warehouse processes.</li>
-                        <li>Built custom client packages (.apk/.aab) with client‑specific theming.</li>
-                        <li>Leveraged MDK offline storage to improve usability in remote locations.</li>
-                        <li>Configured BTP components (destinations, OData, security roles, cloud portal).</li>
-                    </ul>
+                <!-- Infosys / BP -->
+                <div class="tl-item reveal">
+                    <div class="tl-dot"></div>
+                    <div class="exp-card">
+                        <div class="exp-header">
+                            <div class="exp-company-info">
+                                <h3>Infosys Ltd. <span style="font-size:0.72em;color:var(--text-muted)">— bp Account</span></h3>
+                                <div class="exp-meta">Mar 2021 — Dec 2023 &nbsp;|&nbsp; Senior Associate Consultant</div>
+                            </div>
+                            <img src="https://www.infosys.com/content/dam/infosys-web/en/global-resource/media-resources/infosys-logo-png.png" alt="Infosys" class="exp-logo-main">
+                        </div>
+                        <div class="exp-content">
+                            <h4>Global Energy Infrastructure &amp; Mobility Systems</h4>
+                            <ul class="exp-list">
+                                <li><strong>MDK Ecosystem</strong>: Mobile solutions for bp Warehouse &amp; Maintenance teams with advanced offline storage for offshore environments.</li>
+                                <li><strong>BTP Connectivity</strong>: Global OData provisioning &amp; enterprise security roles bridging Cloud Portal and On-Premise systems.</li>
+                                <li><strong>BP Recharges</strong>: UI/UX redesign for financial approval apps integrating SAP Cloud Workflows &amp; Dot-Digital email automation.</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- SAP UI5 Developer – Mumbai (2018‑2021) -->
-                <div class="card">
-                    <h4>Software Engineer – Tech Mahindra Ltd. (Mumbai)</h4>
-                    <p><strong>Apr 2018 – Mar 2021</strong></p>
-
-                    <h5>Project: Vikas</h5>
-                    <ul>
-                        <li>Configured standard SAP UI5/Fiori applications (transactional, analytical, factsheet).</li>
-                        <li>Extended applications using on‑premise Web IDE and handled ABAP classic reports.</li>
-                        <li>Managed FLM module as single point of contact and performed security/role administration.</li>
-                    </ul>
-
-                    <h5>Project: GNIDA</h5>
-                    <ul>
-                        <li>Built custom UI5 apps, integrated OData services, and enabled file uploads to DMS.</li>
-                    </ul>
+                <!-- Tech Mahindra -->
+                <div class="tl-item reveal">
+                    <div class="tl-dot"></div>
+                    <div class="exp-card">
+                        <div class="exp-header">
+                            <div class="exp-company-info">
+                                <h3>Tech Mahindra Ltd.</h3>
+                                <div class="exp-meta">Apr 2018 — Mar 2021 &nbsp;|&nbsp; Software Engineer</div>
+                            </div>
+                            <img src="https://etedge-insights.com/wp-content/uploads/2025/10/TM_Logo_Color_Pos_RGB.jpg" alt="Tech Mahindra" class="exp-logo-main" onerror="this.style.display='none'">
+                        </div>
+                        <div class="exp-content">
+                            <h4>Public Sector Digital Overhaul — MDL, GNIDA, HSL</h4>
+                            <ul class="exp-list">
+                                <li><strong>Defense Architecture</strong>: Standard &amp; extended Fiori apps for Mazagon Dock &amp; Hindustan Shipyard — SD/EHS modules.</li>
+                                <li><strong>Civic Infrastructure (GNIDA)</strong>: Custom UI5 apps for citizen industrial services with robust DMS document handling.</li>
+                                <li><strong>Vikas Platform</strong>: SME for Land Management modules — security administration &amp; ABAP backend optimizations.</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </section>
 
-        <!-- Projects (selected) -->
-        <section class="section">
-            <h3 class="section-title">Selected Projects</h3>
-            <ul>
-                <li><strong>BP Recharges (British Petroleum)</strong> – Design, prototype, and develop UI5 apps; bulk‑upload finance approvals; SAP Cloud Workflows; Dot‑Digital email integration. </li>
-                <li><strong>BP Plant Maintenance (British Petroleum)</strong> – UI5 & MDK development; offline capability for offshore locations; BTP destination & OData provisioning.</li>
-                <li><strong>Greater Noida Industrial Development Authority (GNIDA)</strong> – Custom UI5 development, OData integration, file uploads to DMS.</li>
-                <li><strong>Hindustan Shipyard Ltd.</strong> – UI5/Fiori administration; issue resolution; FLM customization; EHS & SD Fiori configuration.</li>
-                <li><strong>Honeywell</strong> – UI5/Fiori and ABAP development; client meetings; XREF maintenance; AL11 flat‑file operations.</li>
-            </ul>
+        <!-- Education & Credentials -->
+        <section id="expertise" style="padding-top:4rem;padding-bottom:4rem;">
+            <div class="split-grid">
+                <!-- Education as Timeline -->
+                <div class="reveal">
+                    <span class="section-tag">Foundations</span>
+                    <h2 class="section-title">Academic Background.</h2>
+                    <div class="info-card" style="margin-top:1.25rem; padding-bottom:1.5rem;">
+                        <div class="timeline" style="padding-left:2rem;">
+
+                            <div class="tl-item" style="margin-bottom:1.5rem;">
+                                <div class="tl-dot" style="width:13px;height:13px;left:-2rem;top:0.85rem;"></div>
+                                <div class="edu-item">
+                                    <img src="https://assets.allegiance-educare.com/colleges/thumb/150_150_1479818305logo.jpg" alt="GIET Logo" class="edu-logo">
+                                    <div class="edu-info">
+                                        <h5>B.Tech — Computer Science</h5>
+                                        <p>Godavari Institute of Engineering &amp; Technology (JNTU-K)</p>
+                                        <span class="edu-date">2012 — 2016</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tl-item" style="margin-bottom:1.5rem;">
+                                <div class="tl-dot" style="width:13px;height:13px;left:-2rem;top:0.85rem;"></div>
+                                <div class="edu-item">
+                                    <img src="https://media.licdn.com/dms/image/v2/C510BAQEBqTnx1-PI8g/company-logo_200_200/company-logo_200_200/0/1631428689636/adityaedugroup_logo?e=1778112000&v=beta&t=161nYBnT3Nn54nS_k0ysSPV4rimQlw5MwLCPaFCjHKI" alt="Aditya Logo" class="edu-logo">
+                                    <div class="edu-info">
+                                        <h5>Intermediate — MPC</h5>
+                                        <p>Aditya Junior College (BIEAP)</p>
+                                        <span class="edu-date">2010 — 2012</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tl-item">
+                                <div class="tl-dot" style="width:13px;height:13px;left:-2rem;top:0.85rem;"></div>
+                                <div class="edu-item">
+                                    <img src="https://media.licdn.com/dms/image/v2/C510BAQEBqTnx1-PI8g/company-logo_200_200/company-logo_200_200/0/1631428689636/adityaedugroup_logo?e=1778112000&v=beta&t=161nYBnT3Nn54nS_k0ysSPV4rimQlw5MwLCPaFCjHKI" alt="Aditya School" class="edu-logo">
+                                    <div class="edu-info">
+                                        <h5>Secondary School — SSC</h5>
+                                        <p>Aditya School, Andhra Pradesh</p>
+                                        <span class="edu-date">Completed 2010</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Credentials -->
+                <div class="reveal">
+                    <span class="section-tag">Credentials</span>
+                    <h2 class="section-title">Verified Expertise.</h2>
+                    <div class="info-card" style="margin-top:1.25rem; padding-bottom:1.5rem;">
+                        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem;">Official digital credentials verified by SAP &amp; Credly.</p>
+                        <div style="display:flex; gap:1.25rem; align-items:flex-start;">
+                            <a href="https://www.credly.com/badges/c3fabf4b-2505-45d8-bf8c-f2671b10bfc9/linked_in_profile" target="_blank">
+                                <img src="https://img.icons8.com/color/512/credly.png" alt="SAP Cert" style="width:80px;border-radius:8px;">
+                            </a>
+                            <div style="flex:1;">
+                                <h5 style="font-size:0.95rem;margin-bottom:0.35rem;">Certified Application Associate</h5>
+                                <p style="font-size:0.82rem; color:var(--text-sec); line-height:1.5;">SAP Certified in Fiori, BTP Architectures, and Enterprise Extension Suite.</p>
+                                <a href="https://www.credly.com/users/bharath-muppaneni.782acc6a/badges#credly" target="_blank" style="color:var(--accent); font-weight:700; font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; margin-top:0.75rem; display:inline-block;">View All 12+ Badges →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </section>
 
-        <!-- Awards -->
-        <section class="section">
-            <h3 class="section-title">Awards</h3>
-            <ul>
-                <li>Certificate of Appreciation – Best Technology Specialist (BTP Application Development) by SAP.</li>
-                <li>BRAVO Award – Recognized for self‑learning & problem‑solving skills.</li>
-                <li>PAT ON THE BACK Award – Honoured for passion to excel and limitless commitment.</li>
-            </ul>
-        </section>
-
-        <!-- Education -->
-        <section class="section">
-            <h3 class="section-title">Education</h3>
-            <ul>
-                <li><strong>GVIT, JNTU‑K</strong> – B.Tech in Computer Science & Engineering (2012‑2016)</li>
-                <li><strong>Aditya, BIEAP</strong> – MPC (2010‑2012)</li>
-                <li><strong>Aditya, SSC</strong> – Completed 2010</li>
-            </ul>
-        </section>
+        <footer style="padding: 4rem 0; text-align: center; border-top: 1px solid var(--border); margin-top: 4rem;">
+            <p style="font-size: 0.9rem; color: var(--text-sec);">&copy; <span id="year"></span> Architected by Bharath
+                Muppanni. All rights reserved.</p>
+        </footer>
     </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // High Intensity Experience Counter
+        function updateCounter() {
+            const start = new Date('2018-04-01');
+            const now = new Date();
+            const years = Math.abs((now.getTime() - start.getTime()) / (1000 * 3600 * 24 * 365.25));
+            const target = document.getElementById('count-exp');
+            let current = 0;
+            const timer = setInterval(() => {
+                current += 0.1;
+                if (current >= years) {
+                    target.innerHTML = years.toFixed(1) + "<span>+</span>";
+                    clearInterval(timer);
+                } else {
+                    target.innerHTML = current.toFixed(1);
+                }
+            }, 30);
+        }
+
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeIcon = themeBtn.querySelector('i');
+        const root = document.documentElement;
+
+        themeBtn.addEventListener('click', () => {
+            if (root.getAttribute('data-theme') === 'dark') {
+                root.setAttribute('data-theme', 'light');
+                themeIcon.className = 'fa-regular fa-sun';
+            } else {
+                root.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'fa-regular fa-moon';
+            }
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        window.addEventListener('load', () => setTimeout(updateCounter, 500));
+    </script>
 </body>
+
 </html>

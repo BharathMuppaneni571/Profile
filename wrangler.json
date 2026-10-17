@@ -1,7 +1,12 @@
 {
   "name": "profile",
   "compatibility_date": "2025-08-30",
+  "routes": [
+    "breysonlabs.in/developers/bharath*"
+  ],
   "assets": {
-    "directory": "./developers/"
+    "directory": ".",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
   }
 }

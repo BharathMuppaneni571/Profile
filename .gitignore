@@ -1,0 +1,5 @@
+# Wrangler local state / cache
+.wrangler/
+
+# Node
+node_modules/

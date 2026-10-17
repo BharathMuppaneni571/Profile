@@ -1154,11 +1154,24 @@
         document.getElementById('year').textContent = new Date().getFullYear();
 
         // High Intensity Experience Counter
-        function updateCounter() {
+        // Computes real years from career start (Apr 2018) to today, so the value
+        // stays current without manual updates. The element is set immediately so it
+        // is never stuck at 0, then a count-up animation plays as an enhancement.
+        function computeYears() {
             const start = new Date('2018-04-01');
             const now = new Date();
-            const years = Math.abs((now.getTime() - start.getTime()) / (1000 * 3600 * 24 * 365.25));
+            return Math.abs((now.getTime() - start.getTime()) / (1000 * 3600 * 24 * 365.25));
+        }
+
+        function renderStaticYears() {
             const target = document.getElementById('count-exp');
+            if (target) target.innerHTML = computeYears().toFixed(1) + "<span>+</span>";
+        }
+
+        function updateCounter() {
+            const years = computeYears();
+            const target = document.getElementById('count-exp');
+            if (!target) return;
             let current = 0;
             const timer = setInterval(() => {
                 current += 0.1;
@@ -1192,7 +1205,16 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        window.addEventListener('load', () => setTimeout(updateCounter, 500));
+
+        // Render the real, current years-of-experience value immediately so the
+        // counter is never stuck at 0, then play the count-up animation on load.
+        renderStaticYears();
+        const startCounter = () => setTimeout(updateCounter, 500);
+        if (document.readyState === 'complete') {
+            startCounter();
+        } else {
+            window.addEventListener('load', startCounter);
+        }
     </script>
 </body>
 

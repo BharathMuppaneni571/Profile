@@ -2,7 +2,8 @@
   "name": "profile",
   "compatibility_date": "2025-08-30",
   "routes": [
-    "breysonlabs.in/developers/bharath*"
+    "breysonlabs.in/developers/bharath*",
+    "breysonlabs.in/developers/images/*"
   ],
   "assets": {
     "directory": ".",
